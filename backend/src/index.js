@@ -1,0 +1,48 @@
+import express from "express";
+import cors from "cors";
+import dotenv from "dotenv";
+import cookieParser from "cookie-parser";
+import jwt from "jsonwebtoken";
+
+import connectDB from "../DB/Db.js";
+import authRoutes from "../routes/authRoute.js";
+import noteRoutes from "../routes/noteRoutes.js";
+import verifyToken from "../middleware/AuthMiddleWare.js";
+dotenv.config();
+const app = express();
+
+app.use(cors({
+    origin: "*",
+    credentials: true,
+}));
+
+app.use(express.json());
+app.use(cookieParser());
+
+app.set("trust proxy", 1);
+
+connectDB();
+
+app.use("/api/auth", authRoutes);
+
+app.use(verifyToken);
+
+app.use("/api", noteRoutes);
+
+app.get("/auth/check", (req, res) => {
+    return res.json({ isLoggedIn: "true", user });
+});
+
+app.get("/auth/logout", (req, res) => {
+    res.clearCookie("token");
+});
+
+app.get("/", (req, res) => {
+    res.json({ msg: "Safe route" });
+});
+
+const PORT = process.env.PORT || 9000;
+
+app.listen(PORT, () => {
+    console.log(`Listening on port ${PORT}`);
+});
