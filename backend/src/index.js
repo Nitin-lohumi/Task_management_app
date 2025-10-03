@@ -2,7 +2,6 @@ import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
 import cookieParser from "cookie-parser";
-import jwt from "jsonwebtoken";
 
 import connectDB from "../DB/Db.js";
 import authRoutes from "../routes/authRoute.js";
@@ -25,7 +24,7 @@ connectDB();
 
 app.use("/api/auth", authRoutes);
 
-app.use(verifyToken);
+// app.use(verifyToken);
 
 app.use("/api", noteRoutes);
 

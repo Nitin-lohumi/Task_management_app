@@ -6,7 +6,7 @@ const noteSchema = new mongoose.Schema({
         required: true,
     },
     content: { type: String, required: true },
-    tags: { type: [], required: false }
+    tags: { type: [String], default: [], required: false },
 }, { timestamps: true });
 
 const Task = mongoose.model("Task", noteSchema);
