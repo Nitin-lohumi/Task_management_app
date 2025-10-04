@@ -7,7 +7,7 @@ export default function PrivateRoute({ children }: { children: ReactNode }) {
   const { setUser, logoutUser } = useUserStore();
   useEffect(() => {
     axios
-      .get("https://note-app-7cn6.onrender.com/auth/check", {
+      .get("http://localhost:9000/auth/check", {
         withCredentials: true,
       })
       .then((res) => {

@@ -11,7 +11,7 @@ dotenv.config();
 const app = express();
 
 app.use(cors({
-    origin: "*",
+    origin: ["http://localhost:5173"],
     credentials: true,
 }));
 
@@ -24,16 +24,17 @@ connectDB();
 
 app.use("/api/auth", authRoutes);
 
-// app.use(verifyToken);
+app.use(verifyToken);
 
 app.use("/api", noteRoutes);
 
 app.get("/auth/check", (req, res) => {
-    return res.json({ isLoggedIn: "true", user });
+    return res.json({ isLoggedIn: "true", user: req.user });
 });
 
 app.get("/auth/logout", (req, res) => {
     res.clearCookie("token");
+    res.json({ msg: "sucessfull logout" });
 });
 
 app.get("/", (req, res) => {

@@ -4,6 +4,6 @@ const router = express.Router();
 router.post("/task", createNote);
 router.get("/task/:userid", getNotes);
 router.patch("/taskEdit", EditTask);
-router.delete("/notes/:userid/:taskId", deleteNote);
+router.delete("/task/:userid/:taskId", deleteNote);
 router.get("/taskComplete/:userId/:taskId", CompleteTask);
 export default router;

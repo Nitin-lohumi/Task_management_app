@@ -47,8 +47,9 @@ function LoginPage() {
       return;
     }
     try {
-      const res = await API.post("/api/auth/login/verify", {
+      const res = await API.post("/api/auth/login", {
         email: Data.email,
+        password: Data.password,
       });
       toast.success("login successful!");
       console.log(res);
@@ -134,7 +135,7 @@ function LoginPage() {
               </Button>
             </div>
             <div className=" flex items-center justify-center mt-3 md:mt-1">
-              <p className="text-gray-600">Need an account?   </p>{" "}
+              <p className="text-gray-600">Need an account? </p>{" "}
               <Link to="/auth/signup" className="text-blue-700 font-semibold">
                 Create one
               </Link>

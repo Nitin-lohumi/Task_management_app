@@ -7,6 +7,7 @@ function Header() {
   const navigate = useNavigate();
   const handleSignout = async () => {
     try {
+      console.log("asca")
       await API.get("/auth/logout");
       navigate("/auth/login");
       toast.success("logout sucess");
@@ -18,7 +19,7 @@ function Header() {
   return (
     <div className="flex justify-between items-center w-full p-2 md:mt-1 mt-3">
       <div className="flex justify-center items-center">
-        <p className="text-xl md:font-semibold font-bold">DashBord</p>
+        <p className="text-xl md:font-semibold font-bold"></p>
       </div>
       <div
         className="text-blue-600 underline cursor-pointer"

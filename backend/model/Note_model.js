@@ -5,6 +5,7 @@ const noteSchema = new mongoose.Schema({
         ref: "UserData",
         required: true,
     },
+    title: { type: String, required: true },
     content: { type: String, required: true },
     complete: { type: Boolean, default: false, required: false },
     tags: { type: [String], default: [], required: false },

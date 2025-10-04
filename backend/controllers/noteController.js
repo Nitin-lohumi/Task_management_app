@@ -2,11 +2,11 @@ import Task from "../model/Note_model.js";
 import UserData from "../model/userModal.js";
 
 export const createNote = async (req, res) => {
-  const { userid, content, tag } = req.body;
+  const { userid, content, tag, title } = req.body;
   try {
     const user = await UserData.findOne({ _id: userid });
     if (!user) return res.status(400).json({ message: "User not found" });
-    const note = new Task({ userId: user._id, content, tags: tag });
+    const note = new Task({ userId: user._id, content, tags: tag.length ? tag : ["Comman"], title });
     await note.save();
     res.status(201).json({ message: "Note created" });
   } catch (error) {
@@ -25,7 +25,7 @@ export const getNotes = async (req, res) => {
     let query = { userId: user._id };
     if (tags) {
       const tagsArray = Array.isArray(tags) ? tags : [tags];
-      query.tags = { $in: tagsArray }; 
+      query.tags = { $in: tagsArray };
     }
     let notes = await Task.find(query)
       .sort(sort && sort == -1 ? { createdAt: -1 } : { createdAt: 1 })
@@ -34,7 +34,7 @@ export const getNotes = async (req, res) => {
 
     res.json({
       length: notes.length > 10 ? 10 : notes.length,
-      note: notes.slice(0, 10),
+      tasks: notes.slice(0, 10),
       next: notes.length === 11
     });
 
@@ -60,7 +60,7 @@ export const deleteNote = async (req, res) => {
 };
 
 export const EditTask = async (req, res) => {
-  const { userId, TaskId, content, tag } = req.body;
+  const { userId, TaskId, content, tag, complete, title } = req.body;
   try {
     const user = await UserData.findById(userId);
     if (!user) {
@@ -72,7 +72,7 @@ export const EditTask = async (req, res) => {
     }
     const updatedTask = await Task.findOneAndUpdate(
       { _id: TaskId, userId: userId },
-      { content, tags: tag },
+      { content, tags: tag, title, complete },
       { new: true }
     );
     res.json({

@@ -8,7 +8,7 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useUserStore } from "../store/store";
 export const API = axios.create({
-  baseURL: "https://note-app-7cn6.onrender.com",
+  baseURL: "http://localhost:9000",
   withCredentials: true,
 });
 function SignUp() {
@@ -31,7 +31,7 @@ function SignUp() {
         ...prev,
         name: "Name is Required",
         email: "",
-        password:""
+        password: "",
       }));
       return false;
     }
@@ -50,7 +50,7 @@ function SignUp() {
         ...prev,
         email: "Email is not Vaild",
         name: "",
-        password:""
+        password: "",
       }));
       return false;
     }
@@ -62,7 +62,7 @@ function SignUp() {
       return toast.info("please fill the empty blanks");
     }
     try {
-      const res = await API.post("/api/auth/signup/verify", {
+      const res = await API.post("/api/auth/signup", {
         name: Data.name,
         email: Data.email,
         password: Data.password,
@@ -126,7 +126,7 @@ function SignUp() {
                 variant="outlined"
                 fullWidth
                 onChange={(e) =>
-                  setData((prev) => ({ ...prev, dob: e.target.value }))
+                  setData((prev) => ({ ...prev, email: e.target.value }))
                 }
                 sx={{
                   input: { fontSize: "19px" },
@@ -145,9 +145,9 @@ function SignUp() {
                 type="password"
                 variant="outlined"
                 fullWidth
-                value={Data.email}
+                value={Data.password}
                 onChange={(e) =>
-                  setData((prev) => ({ ...prev, email: e.target.value }))
+                  setData((prev) => ({ ...prev, password: e.target.value }))
                 }
                 sx={{
                   input: { fontSize: "19px" },
@@ -157,7 +157,7 @@ function SignUp() {
                   },
                 }}
               />
-              <span className="text-red-500">{isError.email}</span>
+              <span className="text-red-500">{isError.password}</span>
             </div>
 
             <div className="mt-5 mb-4 md:mt-2 md:mb-2">
