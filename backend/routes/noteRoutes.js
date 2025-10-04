@@ -1,8 +1,9 @@
 import express from "express";
-import { createNote, getNotes, deleteNote, EditTask } from "../controllers/noteController.js";
+import { createNote, getNotes, deleteNote, EditTask, CompleteTask } from "../controllers/noteController.js";
 const router = express.Router();
-router.post("/notes", createNote);
-router.get("/notes/:userid", getNotes);
+router.post("/task", createNote);
+router.get("/task/:userid", getNotes);
 router.patch("/taskEdit", EditTask);
-router.delete("/notes/:userid/:Note_id", deleteNote);
+router.delete("/notes/:userid/:taskId", deleteNote);
+router.get("/taskComplete/:userId/:taskId", CompleteTask);
 export default router;
