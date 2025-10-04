@@ -8,7 +8,7 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useUserStore } from "../store/store";
 export const API = axios.create({
-  baseURL: "http://localhost:9000",
+  baseURL: "https://task-management-app-qqfn.onrender.com",
   withCredentials: true,
 });
 function SignUp() {
@@ -186,7 +186,11 @@ function SignUp() {
 
       <motion.div className="p-2 md:block hidden col-span-1 h-auto z-10">
         <div className="h-auto">
-          <img src="/image3.jpg" alt="SideImage" className="h-auto rounded-2xl" />
+          <img
+            src="/image3.jpg"
+            alt="SideImage"
+            className="h-auto rounded-2xl"
+          />
         </div>
       </motion.div>
     </motion.div>
