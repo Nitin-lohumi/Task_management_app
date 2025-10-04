@@ -9,10 +9,10 @@ import {
   Checkbox,
   FormControlLabel,
 } from "@mui/material";
+import { API } from "./SignUp";
 import { Tags } from "./Tags";
 import { toast } from "react-toastify";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import axios from "axios";
 interface Taskdata {
   complete: boolean;
   _id: string;
@@ -45,18 +45,48 @@ export const Editmodel = React.memo(
       }
     }, [taskdata]);
 
-    // const updateTask = useMutation({
-    //   mutationFn: ({ id, data }) => axios.patch(`/api/tasks/${id}`, data),
-    //   onSuccess: () => queryClient.invalidateQueries(["tasks"]),
-    // });
+    const updateTask = useMutation({
+      mutationFn: ({ data }: { data: any }) =>
+        API.patch(`/api/taskEdit/`, data),
+      onSuccess: () => {
+        queryClient.invalidateQueries({ queryKey: ["task"] });
+        setOpen(false);
+      },
+      onError: (error: any) => {
+        toast.error(error?.message);
+        setOpen(true);
+      },
+    });
+
     const handleClose = () => setOpen(false);
+    console.log(tagval);
     const handleSave = () => {
-      if (!title || !taskContent || !tagval.length) {
+      if (!title || !taskContent) {
         return toast.info("fill the missing blanks");
       }
-      console.log("Saved Value:", tagval);
-      setOpen(false);
+      console.log(taskdata.tags.every((v, i) => v == tagval[i]));
+      if (
+        title == taskdata.title &&
+        taskContent == taskdata.content &&
+        checked == taskdata.complete &&
+        taskdata.tags.every((v, i) => v == tagval[i]) &&
+        tagval.every((v, i) => v == taskdata.tags[i])
+      ) {
+        setOpen(false);
+        return;
+      }
+
+      const Values = {
+        userId: taskdata.userId,
+        TaskId: taskdata._id,
+        complete: checked,
+        content: taskContent,
+        tags: tagval,
+        title: title,
+      };
+      updateTask.mutate({ data: Values });
     };
+
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
       setChecked(event.target.checked);
     };
@@ -103,7 +133,7 @@ export const Editmodel = React.memo(
             Cancel
           </Button>
           <Button onClick={handleSave} variant="contained" color="primary">
-            Save
+            {updateTask.isPending ? "saving..." : "save"}
           </Button>
         </DialogActions>
       </Dialog>

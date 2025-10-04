@@ -10,6 +10,9 @@ export const Tags = React.memo(
           toast.info("Cannot use more then 3 tags");
           return;
         }
+        if (input.length > 12) {
+          return toast.info("tag should not to longer keep in max 12 letter");
+        }
         e.preventDefault();
         if (!tags.includes(input.trim())) {
           setTags([...tags, input.trim()]);
