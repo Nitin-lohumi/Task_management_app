@@ -7,7 +7,6 @@ function Header() {
   const navigate = useNavigate();
   const handleSignout = async () => {
     try {
-      console.log("asca")
       await API.get("/auth/logout");
       navigate("/auth/login");
       toast.success("logout sucess");

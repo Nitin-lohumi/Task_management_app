@@ -62,12 +62,11 @@ function SignUp() {
       return toast.info("please fill the empty blanks");
     }
     try {
-      const res = await API.post("/api/auth/signup", {
+      await API.post("/api/auth/signup", {
         name: Data.name,
         email: Data.email,
         password: Data.password,
       });
-      console.log("Signup success:", res.data);
       toast.success("Signup successful!");
       router("/");
     } catch (err: any) {
@@ -187,7 +186,7 @@ function SignUp() {
 
       <motion.div className="p-2 md:block hidden col-span-1 h-auto z-10">
         <div className="h-auto">
-          <img src="/sideImage.png" alt="SideImage" className="h-auto" />
+          <img src="/image3.jpg" alt="SideImage" className="h-auto rounded-2xl" />
         </div>
       </motion.div>
     </motion.div>

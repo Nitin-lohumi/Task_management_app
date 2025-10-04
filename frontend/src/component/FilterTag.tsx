@@ -26,7 +26,7 @@ const FilterTag = ({
     setIsSort(false);
     setFilterValue({ tags: [], sort: 0 });
   };
-  console.log(tagsOption);
+
   const handleSearch = () => {
     setOpen(false);
     setFilterValue({

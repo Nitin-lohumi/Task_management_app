@@ -59,12 +59,10 @@ export const Editmodel = React.memo(
     });
 
     const handleClose = () => setOpen(false);
-    console.log(tagval);
     const handleSave = () => {
       if (!title || !taskContent) {
         return toast.info("fill the missing blanks");
       }
-      console.log(taskdata.tags.every((v, i) => v == tagval[i]));
       if (
         title == taskdata.title &&
         taskContent == taskdata.content &&

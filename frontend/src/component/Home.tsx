@@ -39,7 +39,6 @@ function Home() {
   useEffect(() => {
     if (filter.tags.length && filter.sort) {
       query.invalidateQueries({ queryKey: ["task"] });
-      console.log(filter);
     }
   }, [filter.sort, filter.tags]);
   if (filter.tags.length) params.append("tags", filter.tags.join(","));
@@ -206,8 +205,8 @@ function Home() {
                   </span>
                 </span>
               </div>
-              <div className="w-full flex flex-wrap p-2 shadow-xs rounded-xl shadow-green-800">
-                {content}
+              <div className="w-full border overflow-hidden flex flex-wrap text-wrap p-2 shadow-xs rounded-xl shadow-green-800">
+                <p className="w-fit flex flex-wrap text-wrap">{content}</p>
                 {v.content.length > 130 && "..."}
                 <span
                   onClick={() => toggleExtend(v._id)}
@@ -235,7 +234,7 @@ function Home() {
                     {v?.tags.map((t, index) => {
                       return (
                         <motion.div
-                          initial={{ y:   100, opacity: 0 }}
+                          initial={{ y: 100, opacity: 0 }}
                           animate={{ y: 0, opacity: 1 }}
                           transition={{ duration: 0.9, delay: index * 0.4 }}
                           key={index}
@@ -273,7 +272,6 @@ function Home() {
             onClick={() => {
               setPageCount((prev) => prev - 1);
               query.invalidateQueries({ queryKey: ["task"] });
-              console.log(pageCount);
             }}
             className={`pl-3 p-2 pr-3 rounded-xl text-white 
       ${
@@ -290,7 +288,6 @@ function Home() {
             onClick={() => {
               setPageCount((prev) => prev + 1);
               query.invalidateQueries({ queryKey: ["task"] });
-              console.log(pageCount);
             }}
             className={`pl-3 p-2 pr-3 rounded-xl text-white 
       ${
