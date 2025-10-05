@@ -1,0 +1,51 @@
+#  Task Management App (MERN Stack)
+
+A modern **Task Management Web Application** built with the **MERN stack** — featuring authentication, CRUD operations, filters, sorting, pagination, and smooth UI animations.  
+This project allows users to manage their daily tasks efficiently with a clean and interactive interface.
+
+---
+
+##  Features
+
+###  Authentication
+- **Signup & Login** with **JWT (JSON Web Token)** authentication  
+- Secure cookies  
+ 
+
+###  Task Management
+- **Create**, **Read**, **Update**, and **Delete** tasks  
+- Edit task title, description, completion status, and tags  
+- Tasks stored and retrieved via **MongoDB Atlas**  
+
+###  Filters & Sorting
+- Filter tasks by **tags**
+- Sort tasks by **status** (complete / incomplete)
+- **Pagination** support for large task lists
+
+### UI & UX
+- Built with **Tailwind CSS** + **Material UI (MUI)** for modern, responsive design  
+- **Framer Motion** for smooth transitions and animations  
+- **React Icons** and **React Spinners** for enhanced visual feedback  
+
+---
+
+##  Tech Stack
+
+Frontend:
+React.js, Tailwind CSS, Material UI (MUI), Framer Motion
+
+Backend:
+Node.js, Express.js
+
+Database:
+MongoDB (with Mongoose ODM)
+
+Authentication:
+JWT (JSON Web Token)
+
+Deployment:
+**Frontend:** [Vercel Deployment Link](https://task-management-app-cyan-one.vercel.app)  
+**Backend:** [Render API Link](https://your-backend-api.onrender.com)
+
+
+
