@@ -1,3 +1,4 @@
+import { ClipLoader } from "react-spinners";
 import { useEffect, useState, type ReactNode } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
@@ -8,7 +9,7 @@ export default function PublicRoute({ children }: { children: ReactNode }) {
   const [loading, setLoading] = useState(true);
   useEffect(() => {
     axios
-      .get("http://localhost:9000/auth/check", {
+      .get("https://task-management-app-qqfn.onrender.com", {
         withCredentials: true,
       })
       .then((res) => {
@@ -23,6 +24,18 @@ export default function PublicRoute({ children }: { children: ReactNode }) {
         setLoading(false);
       });
   }, [navigate]);
-  if (loading) return <>Wait Authenticating... /</>;
+  if (loading)
+    return (
+      <ClipLoader
+        size={50}
+        color="blue"
+        cssOverride={{
+          position: "absolute",
+          top: "50%",
+          left: "50%",
+          transform: "translate(-50%,-50%)",
+        }}
+      />
+    );
   return children;
 }
