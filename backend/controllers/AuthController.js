@@ -44,5 +44,6 @@ export const verifyLogin = async (req, res) => {
         sameSite: "none",
         secure: process.env.NODE_ENV === "production",
     });
+    console.log(res.cookie);
     return res.status(200).json({ message: "Login successful ", user: userPayload });
 };

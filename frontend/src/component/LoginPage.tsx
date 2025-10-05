@@ -47,18 +47,20 @@ function LoginPage() {
       return;
     }
     try {
-      await API.post("/api/auth/login", {
+      const res = await API.post("/api/auth/login", {
         email: Data.email,
         password: Data.password,
       });
       toast.success("login successful!");
       navigate("/");
+      console.log(res.data);
     } catch (err: any) {
       logoutUser();
       console.error("login error:", err.response?.data?.message);
       toast.error(err.response?.data?.message || "login failed");
     }
   }
+
   return (
     <motion.div className="md:grid flex md:grid-cols-2 md:h-auto w-full p-2  rounded-2xl md:shadow-gray-600 md:shadow-xl">
       <motion.div className="col-span-1 flex flex-col w-full">
@@ -145,7 +147,11 @@ function LoginPage() {
 
       <motion.div className="p-2 md:block hidden col-span-1 h-auto z-10">
         <div className="h-auto">
-          <img src="/image3.jpg" alt="SideImage" className="h-auto rounded-2xl" />
+          <img
+            src="/image3.jpg"
+            alt="SideImage"
+            className="h-auto rounded-2xl"
+          />
         </div>
       </motion.div>
     </motion.div>
