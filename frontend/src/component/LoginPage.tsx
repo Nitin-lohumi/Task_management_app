@@ -8,7 +8,7 @@ import { API } from "./SignUp";
 import { toast } from "react-toastify";
 import { useUserStore } from "../store/store";
 function LoginPage() {
-  const { logoutUser } = useUserStore();
+  const { logoutUser, setUser } = useUserStore();
   const navigate = useNavigate();
   const [Data, setData] = useState({
     email: "",
@@ -53,6 +53,7 @@ function LoginPage() {
       });
       toast.success("login successful!");
       navigate("/");
+      setUser(res.data.user);
       console.log(res.data);
     } catch (err: any) {
       logoutUser();

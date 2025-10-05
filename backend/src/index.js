@@ -33,6 +33,7 @@ app.get("/auth/check", (req, res) => {
 });
 
 app.get("/auth/logout", (req, res) => {
+    req.user = null;
     res.clearCookie("token", {
         httpOnly: true,
         secure: process.env.NODE_ENV === "production",
