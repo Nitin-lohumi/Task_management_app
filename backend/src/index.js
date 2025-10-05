@@ -11,7 +11,7 @@ dotenv.config();
 const app = express();
 
 app.use(cors({
-    origin: ["https://task-management-app-cyan-one.vercel.app","http://localhost:5173"],
+    origin: ["https://task-management-app-cyan-one.vercel.app", "http://localhost:5173"],
     credentials: true,
 }));
 
@@ -33,7 +33,11 @@ app.get("/auth/check", (req, res) => {
 });
 
 app.get("/auth/logout", (req, res) => {
-    res.clearCookie("token");
+    res.clearCookie("token", {
+        httpOnly: true,
+        secure: process.env.NODE_ENV === "production",
+        sameSite: "none",
+    });
     res.json({ msg: "sucessfull logout" });
 });
 
