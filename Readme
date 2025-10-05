@@ -43,6 +43,10 @@ MongoDB (with Mongoose ODM)
 Authentication:
 JWT (JSON Web Token)
 
+YOU can Check:  Login using - 
+email - TestUser@gmail.com
+password - test
+
 Deployment:
 **Frontend:** [Vercel Deployment Link](https://task-management-app-cyan-one.vercel.app)  
 **Backend:** [Render API Link](https://task-management-app-qqfn.onrender.com)
