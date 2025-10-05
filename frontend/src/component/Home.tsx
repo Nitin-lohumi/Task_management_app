@@ -9,6 +9,7 @@ import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { useUserStore } from "../store/store";
 import { Editmodel } from "./EditModal";
 import FilterTag from "./FilterTag";
+import { ClipLoader } from "react-spinners";
 interface Taskdata {
   complete: boolean;
   _id: string;
@@ -173,97 +174,118 @@ function Home() {
         tagsOption={data?.data?.tags || [""]}
         setFilterValue={setFilterValue}
       />
-      {isLoading && <>loading..</>}
+      {isLoading && (
+        <ClipLoader
+          size={50}
+          color="blue"
+          cssOverride={{
+            position: "absolute",
+            top: "50%",
+            left: "50%",
+            transform: "translate(-50%,-50%)",
+          }}
+        />
+      )}
       <AnimatePresence>
-        {data?.data.tasks.map((v: Taskdata, i: number) => {
-          const isExtended = extendedNotes[v._id] || false;
-          const content = isExtended ? v.content : v.content.substring(0, 150);
-          return (
-            <motion.div
-              key={v._id}
-              initial={{ opacity: 0, x: 100 }}
-              animate={{ opacity: 1, x: 0 }}
-              exit={{ opacity: 0, x: 100 }}
-              transition={{ duration: 0.5, delay: i * 0.05, ease: "easeOut" }}
-              layout
-              className={`pl-2 pr-2 rounded-xl mt-3  ${
-                v.complete && "bg-green-100"
-              } flex flex-col shadow-sm shadow-gray-900`}
-            >
-              <div className="flex justify-between">
-                <span className="text-xl font-bold font-serif p-2 capitalize">
-                  {v.title}
-                </span>
-                <span className="text-xl font-bold font-serif p-2 capitalize">
-                  status:{" "}
-                  <span
-                    className={`${
-                      v.complete ? "text-green-500" : "text-yellow-500"
-                    }`}
-                  >
-                    {v.complete ? "Completed" : "pending"}
+        {data?.data.tasks.length ? (
+          data?.data.tasks.map((v: Taskdata, i: number) => {
+            const isExtended = extendedNotes[v._id] || false;
+            const content = isExtended
+              ? v.content
+              : v.content.substring(0, 150);
+            return (
+              <motion.div
+                key={v._id}
+                initial={{ opacity: 0, x: 100 }}
+                animate={{ opacity: 1, x: 0 }}
+                exit={{ opacity: 0, x: 100 }}
+                transition={{ duration: 0.5, delay: i * 0.05, ease: "easeOut" }}
+                layout
+                className={`pl-2 pr-2 rounded-xl mt-3  ${
+                  v.complete && "bg-green-100"
+                } flex flex-col shadow-sm shadow-gray-900`}
+              >
+                <div className="flex justify-between">
+                  <span className="text-xl font-bold font-serif p-2 capitalize">
+                    {v.title}
                   </span>
-                </span>
-              </div>
-              <div className="w-full border overflow-hidden flex flex-wrap text-wrap p-2 shadow-xs rounded-xl shadow-green-800">
-                <p className="w-fit flex flex-wrap text-wrap">{content}</p>
-                {v.content.length > 130 && "..."}
-                <span
-                  onClick={() => toggleExtend(v._id)}
-                  className="inline-block font-bold text-xl text-blue-700 cursor-pointer text-nowrap"
-                >
-                  {v.content.length < 150 ? "" : isExtended ? " Hide" : " more"}
-                </span>
-              </div>
+                  <span className="text-xl font-bold font-serif p-2 capitalize">
+                    status:{" "}
+                    <span
+                      className={`${
+                        v.complete ? "text-green-500" : "text-yellow-500"
+                      }`}
+                    >
+                      {v.complete ? "Completed" : "pending"}
+                    </span>
+                  </span>
+                </div>
+                <div className="w-full border overflow-hidden flex flex-wrap text-wrap p-2 shadow-xs rounded-xl shadow-green-800">
+                  <p className="w-fit flex flex-wrap text-wrap">{content}</p>
+                  {v.content.length > 130 && "..."}
+                  <span
+                    onClick={() => toggleExtend(v._id)}
+                    className="inline-block font-bold text-xl text-blue-700 cursor-pointer text-nowrap"
+                  >
+                    {v.content.length < 150
+                      ? ""
+                      : isExtended
+                      ? " Hide"
+                      : " more"}
+                  </span>
+                </div>
 
-              <div className="flex gap-10 p-2 justify-between items-center">
-                <div
-                  className={`md:flex items-center md:p-1 rounded-xl md:gap-2 gap-5`}
-                >
-                  <button
-                    className={`md:pl-3 border-green-500 border font-semibold pr-3 p-2 mb-3 md:mb-0 rounded-xl cursor-pointer   ${
-                      v.complete && "bg-green-700 text-white"
-                    } text-black`}
-                    disabled={v.complete}
-                    onClick={() => handleCompleteTask(v._id)}
+                <div className="flex gap-10 p-2 justify-between items-center">
+                  <div
+                    className={`md:flex items-center md:p-1 rounded-xl md:gap-2 gap-5`}
                   >
-                    {v.complete ? "Done " : "complete"}
-                  </button>
-                  <br />
-                  <div className="flex gap-4 w-fit md:w-full">
-                    {v?.tags.map((t, index) => {
-                      return (
-                        <motion.div
-                          initial={{ y: 100, opacity: 0 }}
-                          animate={{ y: 0, opacity: 1 }}
-                          transition={{ duration: 0.9, delay: index * 0.4 }}
-                          key={index}
-                          className="bg-gray-500 rounded-xl w-[55px] md:w-fit text-xs text-wrap md:p-2 p-1 md:text-sm text-white cursor-pointer"
-                        >
-                          {"# " + t}
-                        </motion.div>
-                      );
-                    })}
+                    <button
+                      className={`md:pl-3 border-green-500 border font-semibold pr-3 p-2 mb-3 md:mb-0 rounded-xl cursor-pointer   ${
+                        v.complete && "bg-green-700 text-white"
+                      } text-black`}
+                      disabled={v.complete}
+                      onClick={() => handleCompleteTask(v._id)}
+                    >
+                      {v.complete ? "Done " : "complete"}
+                    </button>
+                    <br />
+                    <div className="flex gap-4 w-fit md:w-full">
+                      {v?.tags.map((t, index) => {
+                        return (
+                          <motion.div
+                            initial={{ y: 100, opacity: 0 }}
+                            animate={{ y: 0, opacity: 1 }}
+                            transition={{ duration: 0.9, delay: index * 0.4 }}
+                            key={index}
+                            className="bg-gray-500 rounded-xl w-[55px] md:w-fit text-xs text-wrap md:p-2 p-1 md:text-sm text-white cursor-pointer"
+                          >
+                            {"# " + t}
+                          </motion.div>
+                        );
+                      })}
+                    </div>
+                  </div>
+                  <div className="flex items-center w-full md:w-fit">
+                    <div
+                      className="cursor-pointer m-2 w-full"
+                      onClick={() => handleEdit(v)}
+                    >
+                      <MdEditSquare size={26} color="blue" />
+                    </div>
+                    <div
+                      className="cursor-pointer  m-2 w-full"
+                      onClick={() => handleDelete(v._id)}
+                    >
+                      <MdDeleteForever size={26} color="red" />
+                    </div>
                   </div>
                 </div>
-                <div className="flex items-center w-full md:w-fit">
-                  <div
-                    className="cursor-pointer m-2 w-full"
-                    onClick={() => handleEdit(v)}
-                  >
-                    <MdEditSquare size={26} color="blue" />
-                  </div>
-                  <div
-                    className="cursor-pointer  m-2 w-full"
-                    onClick={() => handleDelete(v._id)}
-                  >
-                    <MdDeleteForever size={26} color="red" />
-                  </div>
-                </div>
-              </div>
-            </motion.div>
-          );
-        })}
+              </motion.div>
+            );
+          })
+        ) : (
+          <>NO Task is available</>
+        )}
       </AnimatePresence>
       {data?.data?.tasks?.length > 0 && (
         <div className="flex justify-evenly p-1 mt-2">

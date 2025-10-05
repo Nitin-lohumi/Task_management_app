@@ -31,7 +31,7 @@ const FilterTag = ({
     setOpen(false);
     setFilterValue({
       tags: selectedValues.filter(
-        (v) => v.toLowerCase() !== "Sort By Status".toLowerCase()
+        (v) => v?.toLowerCase() !== "Sort By Status".toLowerCase()
       ),
       sort: isSort ? -1 : 0,
     });
