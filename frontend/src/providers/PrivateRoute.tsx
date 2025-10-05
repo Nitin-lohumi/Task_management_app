@@ -8,7 +8,7 @@ export default function PrivateRoute({ children }: { children: ReactNode }) {
   const { setUser, logoutUser } = useUserStore();
   useEffect(() => {
     axios
-      .get("https://task-management-app-qqfn.onrender.com", {
+      .get("https://task-management-app-qqfn.onrender.com/auth/check", {
         withCredentials: true,
       })
       .then((res) => {

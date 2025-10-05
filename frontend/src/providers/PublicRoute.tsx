@@ -9,7 +9,7 @@ export default function PublicRoute({ children }: { children: ReactNode }) {
   const [loading, setLoading] = useState(true);
   useEffect(() => {
     axios
-      .get("https://task-management-app-qqfn.onrender.com", {
+      .get("https://task-management-app-qqfn.onrender.com/auth/check", {
         withCredentials: true,
       })
       .then((res) => {
