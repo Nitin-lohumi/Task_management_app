@@ -48,7 +48,7 @@ function Home() {
   const { data, isLoading } = useQuery({
     queryKey: ["task", filter, pageCount],
     queryFn: () => API.get(url),
-    staleTime: 60 * 60 * 60,
+    staleTime: 60 * 1000,
     enabled: !!user?.id,
   });
 
