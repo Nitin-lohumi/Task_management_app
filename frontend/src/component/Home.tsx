@@ -220,7 +220,7 @@ function Home() {
                     </span>
                   </span>
                 </div>
-                <div className="w-full border overflow-hidden flex flex-wrap text-wrap p-2 shadow-xs rounded-xl shadow-green-800">
+                <div className="w-full overflow-hidden flex flex-wrap text-wrap p-2 shadow-xs rounded-xl shadow-green-800">
                   <p className="w-fit flex flex-wrap text-wrap">{content}</p>
                   {v.content.length > 130 && "..."}
                   <span
